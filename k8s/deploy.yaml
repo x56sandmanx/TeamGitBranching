@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: section-project-deployment
+  labels:
+    app: console-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: console-project
+  template:
+    metadata:
+      labels:
+        app: console-project
+    spec:
+      containers:
+        - name: console-project
+          image: $FULL_IMAGE_WITH_TAG
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 2048Mi
+            requests:
+              cpu: 2000m
+              memory: 2048Mi
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: regcred
